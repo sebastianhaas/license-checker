@@ -1,0 +1,12 @@
+<h1>Open-Source Software Licenses Used in {{name}}</h1>
+
+{{#each dependencies}}
+<h2>{{this.title}} at version {{this.version}}</h2>
+
+{{#if this.licenseFileContent}}
+{{this.licenseFileContent}}
+{{else}}
+{{this.licenses}}
+{{/if}}
+
+{{/each}}

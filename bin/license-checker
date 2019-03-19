@@ -26,6 +26,7 @@ if (args.help) {
         '   --json output in json format.',
         '   --csv output in csv format.',
         '   --csvComponentPrefix column prefix for components in csv file',
+        '   --handlebarsTemplate path to a Handlebars template to be used',
         '   --out [filepath] write the data to a specific file.',
         '   --customPath to add a custom Format file in JSON',
         '   --exclude [list] exclude modules which licenses are in the comma-separated list from the output',
@@ -89,6 +90,8 @@ checker.init(args, function(err, json) {
         formattedOutput = checker.asMarkDown(json, args.customFormat) + '\n';
     } else if (args.summary) {
         formattedOutput = checker.asSummary(json);
+    } else if (args.handlebarsTemplate) {
+        formattedOutput = checker.asHandlebars(json, args.handlebarsTemplate, { expandLicenseFileContents: true });
     } else {
         formattedOutput = checker.asTree(json);
     }
@@ -105,5 +108,5 @@ checker.init(args, function(err, json) {
 });
 
 function shouldColorizeOutput(args) {
-    return args.color && !args.out && !(args.csv || args.json || args.markdown);
+    return args.color && !args.out && !(args.csv || args.json || args.markdown || args.handlebarsTemplate);
 }
